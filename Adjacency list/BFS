@@ -1,0 +1,90 @@
+/*对邻接表表示的图进行广度优先遍历(BFS)*/
+#define QueueSize 30
+typedef struct CirQueue* queue;
+struct CirQueue
+{
+	int front;
+	int rear;
+	int count;
+	int data[QueueSize];
+};
+void init_queue(queue Q)
+{
+	Q->front = Q->rear = 0;
+	Q->count = 0;
+}
+int isempty_queue(queue Q)
+{
+	return Q->count == 0;
+}
+int isfull_queue(queue Q)
+{
+	return Q->count == QueueSize;
+}
+void push_queue(queue Q, int X)
+{
+	if (isfull_queue(Q))
+		printf("Queue overflow");
+	else
+	{
+		Q->count++;
+		Q->data[Q->rear] = X;
+		Q->rear = (Q->rear + 1) % QueueSize;
+	}
+}
+int pop_queue(queue Q)
+{
+	int temp;
+	if (isempty_queue(Q))
+	{
+		printf("Queue underflow");
+		return NULL;
+	}
+	else
+	{
+		temp = Q->data[Q->front];
+		Q->count--;
+		Q->front = (Q->front + 1) % QueueSize;
+		return temp;
+	}
+}
+//以k为源点进行对邻接表的广度优先遍历
+void BFSTraversal(LGraph Graph);
+void BFS(LGraph Graph, int k);
+void BFS(LGraph Graph, int k)
+{
+	int i;
+	queue Q;
+	PtrToAdjVNode NewNode;
+	init_queue(Q);
+	printf("visit vertex:%d\n", Graph->G[k].Data);
+	visited[k] = TRUE;
+	push_queue(Q, k);
+	while (!isempty_queue(Q))
+	{
+		i = pop_queue(Q);		/*相当于i出队*/
+		NewNode = Graph->G[i].FirstEdge;	/*取i的边头指针*/
+		while (NewNode)
+		{						/*依次搜索i的邻接点(NewNode->Adjv)*/
+			if (!visited[NewNode->Adjv])
+			{
+				printf("visit vertex:%d\n", Graph->G[NewNode->Adjv].Data);
+				printf("weight:%d", Graph->G[NewNode->Weight]);
+				visited[NewNode->Adjv] = TRUE;
+				push_queue(Q, NewNode->Adjv);	/*将访问过的结点入队*/
+			}
+			NewNode = NewNode->Next;	/*找i的下一邻接点*/
+		}
+	}
+}
+void BFSTraversal(LGraph Graph)
+{
+	int i;
+	for (i = 0; i < Graph->Nv; i++)
+		visited[i] = FALSE;
+	for (i = 0; i < Graph->Nv; i++)
+	{
+		if (!visited[i])
+			BFS(Graph, i);
+	}
+}
