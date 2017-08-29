@@ -1,0 +1,86 @@
+/*广度优先搜索(BFS)*/
+/*利用队列*/
+#define QueueSize 30
+void BFS(MGraph Graph, int k);
+void BFSTraversal(MGraph Graph);
+typedef struct CirQueue* queue;
+struct CirQueue
+{
+	int front;
+	int rear;
+	int count;
+	int data[QueueSize];
+};
+void init_queue(queue Q)
+{
+	Q->front = Q->rear = 0;
+	Q->count = 0;
+}
+int isempty_queue(queue Q)
+{
+	return Q->count == 0;
+}
+int isfull_queue(queue Q)
+{
+	return Q->count == QueueSize;
+}
+void push_queue(queue Q, int X)
+{
+	if (isfull_queue(Q))
+		printf("Queue overflow");
+	else
+	{
+		Q->count++;
+		Q->data[Q->rear] = X;
+		Q->rear = (Q->rear + 1) % QueueSize;
+	}
+}
+int pop_queue(queue Q)
+{
+	int temp;
+	if (isempty_queue(Q))
+	{
+		printf("Queue underflow");
+		return NULL;
+	}
+	else
+	{
+		temp = Q->data[Q->front];
+		Q->count++;
+		Q->front = (Q->front + 1) % QueueSize;
+		return temp;
+	}
+}
+void BFSTraversal(MGraph Graph)
+{
+	int i;
+	for (i = 0; i < Graph->Nv; i++)
+		visited[i] = FALSE;
+	for (i = 0; i < Graph->Nv; i++)
+	{
+		if (!visited[i])
+			BFS(Graph, i);
+	}
+}
+void BFS(MGraph Graph, int k)
+{
+	int i, j;
+	queue Q;
+	init_queue(Q);
+	printf("visit vertex:%d\n", Graph->G[k]);
+	visited[k] = TRUE;
+	push_queue(Q, k);
+	while (!isempty_queue(Q))
+	{
+		i = pop_queue(Q);
+		for (j = 0; j < Graph->Nv; j++)
+		{
+			if (Graph->G[i][j] != 0 && !visited[j])
+			{
+				printf("visit vertex:%d\n", Graph->G[j]);
+				visited[j] = TRUE;
+				push_queue(Q, j);
+			}
+		}
+	}
+}
