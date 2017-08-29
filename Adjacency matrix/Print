@@ -1,0 +1,11 @@
+void PrintGraph(MGraph Graph)
+{
+	int i, j;
+	for (i = 0; i < Graph->Nv; i++)
+	{
+		for (j = 0; j < Graph->Nv; j++)
+		{
+			printf("%2d", Graph->G[i][j]);
+		}
+	}
+}
