@@ -1,0 +1,16 @@
+/*打印邻接表*/
+void PrintfLGraph(LGraph Graph)
+{
+	for (int i = 0; i < Graph->Nv; i++)
+	{
+		printf("vertex:%d", Graph->G[i].Data);
+		PtrToAdjVNode NewNode=Graph->G[i].FirstEdge;
+		while (NewNode)
+		{
+			printf("-:%d", NewNode->Adjv);
+			printf("weight:%d", NewNode->Weight);
+			NewNode = NewNode->Next;
+		}
+		printf("\n");
+	}
+}
