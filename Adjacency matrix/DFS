@@ -1,0 +1,26 @@
+/*深度优先搜索(DFS)*/
+typedef enum { TRUE, FALSE }Boolean;
+Boolean visited[MaxVertexNum];
+void DFSTraversal(MGraph Graph);
+void DFS(MGraph Graph,int i);
+void DFSTraversal(MGraph Graph)
+{
+	int i;
+	for (i = 0; i < Graph->Nv; i++)
+		visited[i] = FALSE;
+	for (i = 0; i < Graph->Nv; i++)
+		DFS(Graph,i);
+}
+//i为既定的遍历起点
+void DFS(MGraph Graph, int i)
+{
+	PtrToGNode NewNode;
+	printf("visit vertex:%d\n", Graph->G[i]);
+	visited[i] = TRUE;
+	//依次遍历邻接点
+	for (int j = 0; j < Graph->Nv; j++)
+	{
+		if (Graph->G[i][j] != 0 && !visited[j])
+			DFS(Graph, j);
+	}
+}
