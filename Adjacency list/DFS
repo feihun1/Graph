@@ -1,0 +1,29 @@
+/*对邻接表表示的图进行深度优先遍历(DFS)*/
+typedef enum{FALSE,TRUE}Boolean;
+Boolean visited[MaxVertexNum];
+void DFS(LGraph Graph, int i);
+void DFSTraversal(LGraph Graph);
+void DFSTraversal(LGraph Graph)
+{
+	int i;
+	for (i = 0; i < Graph->Nv; i++)
+		visited[i] = FALSE;
+	for (i = 0; i < Graph->Nv; i++)
+	{
+		if(!visited[i])
+			DFS(Graph, i);
+	}
+}
+//i为定义的遍历起点
+void DFS(LGraph Graph, int i)
+{
+	PtrToAdjVNode NewNode;
+	printf("visit vertex:%d\n", Graph->G[i].Data);
+	visited[i] = TRUE;	//标记i已访问
+	NewNode = Graph->G[i].FirstEdge;
+	while (NewNode)
+	{
+		if (!visited[NewNode->Adjv])
+			DFS(Graph, NewNode->Adjv);
+	}
+}
