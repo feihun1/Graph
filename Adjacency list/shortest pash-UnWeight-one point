@@ -1,5 +1,7 @@
 /*无权图的单源最短路径算法（类似于BFS）*/
 /*S为初始化原点*/
+/*dist用来记录W->Adjv到S的距离*/
+/*path用来记录路径上的点*/
 void UnWeighted(LGraph Graph, int dist[], int past[], Vertex S)
 {
 	int i;
