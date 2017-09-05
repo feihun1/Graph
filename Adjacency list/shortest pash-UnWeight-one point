@@ -1,0 +1,31 @@
+/*无权图的单源最短路径算法（类似于BFS）*/
+/*S为初始化原点*/
+void UnWeighted(LGraph Graph, int dist[], int past[], Vertex S)
+{
+	int i;
+	queue Q;
+	Vertex V;
+	PtrToAdjVNode W;
+	init_queue(Q);
+	for (i = 0; i < Graph->Nv; i++)
+		past[i] = -1;
+	for (i = 0; i < Graph->Nv; i++)
+		dist[i] = -1;
+	dist[S] = 0;
+	push_queue(Q, S);
+	while (!isempty_queue(Q))
+	{
+		V = pop_queue(Q);
+		/*对于V的每个邻接点W->Adjv*/
+		for (W = Graph->G[V].FirstEdge; W; W = W->Next)
+		{
+			/*如果没有被访问过*/
+			if (dist[W->Adjv] == -1)
+			{
+				dist[W->Adjv] = dist[V] + 1;
+				past[W->Adjv] = V;
+				push_queue(Q, W->Adjv);
+			}
+		}
+	}
+}
