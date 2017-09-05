@@ -1,0 +1,31 @@
+/*无权图的单源最短路径算法（类似于BFS）*/
+/*S设为起点*/
+/*dist用来记录Graph->G[V][W]到S的距离*/
+/*path用来记录路径上的点*/
+void UnWeighted(MGraph Graph, int dist[], int path[], Vertex S)
+{
+	int x;
+	queue Q;
+	Vertex V,W;
+	init_queue(Q);
+	push_queue(Q, S);
+	for (x = 0; x < Graph->Nv; x++)
+		dist[x] = -1;
+	dist[S] = 0;
+	for (x = 0; x < Graph->Nv; x++)
+		path[x] = -1;
+	while (!isempty_queue(Q))
+	{
+		V = pop_queue(Q);
+		for (W = 0; W < Graph->Nv; W++)
+		{
+			if (Graph->G[V][W] == -1)
+			{
+				dist[Graph->G[V][W]] = dist[V] + 1;
+				path[Graph->G[V][W]] = V;
+				push_queue(Q, Graph->G[V][W]);
+			}
+		}
+
+	}
+}
