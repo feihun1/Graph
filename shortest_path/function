@@ -1,0 +1,9 @@
+typedef struct MGraph
+{
+	int edges[NUM][NUM];	//邻接表储存结构
+	int n, e;
+}MGraph;
+MGraph *build_mgraph();
+void Dijkstra(MGraph *mgraph, int v);
+void Dispath(int dis[], int pre[], int visited[], int n, int v);
+void Ppath(int path[], int i, int v);
