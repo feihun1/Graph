@@ -1,0 +1,10 @@
+int main()
+{
+	MGraph *mgraph;
+	printf("该图的矩阵表示为:\n");
+	mgraph = build_mgraph();
+	printf("dijkstra算法:\n");
+	Dijkstra(mgraph, 0);
+	getchar();
+	return 0;
+}
