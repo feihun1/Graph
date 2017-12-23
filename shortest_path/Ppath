@@ -1,0 +1,9 @@
+void Ppath(int pre[], int i, int v)
+{
+	int k;
+	k = pre[i];
+	if (k == v)
+		return;
+	Ppath(pre, k, v);
+	printf("%d, ", k);
+}
