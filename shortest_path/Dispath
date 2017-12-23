@@ -1,0 +1,16 @@
+void Dispath(int dis[], int pre[], int visited[], int n, int v)
+{
+	int i;
+	for (i = 0; i < n; i++)
+	{
+		if (visited[i])
+		{
+			printf("从%d到%d的最短路径长度为:%d\t路径为:", v, i, dis[i]);
+			printf("%d, ", v);
+			Ppath(pre, i, v);
+			printf("%d\n", i);
+		}
+		else
+			printf("no path\n");
+	}
+}
