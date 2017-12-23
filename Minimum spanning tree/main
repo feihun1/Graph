@@ -1,0 +1,33 @@
+int main()
+{
+	int i, j, k, m, n;
+	int cost;
+	char chx, chy;
+	/* 读取节点和边的数目 */
+	scanf("%d%d", &m, &n);
+	getchar();
+	/* 初始化图，所有节点间距离为无穷大 */
+	for (i = 1; i <= m; i++)
+	{
+		for (j = 1; j <= m; j++)
+		{
+			graph[i][j] = MAXCOST;
+		}
+	}
+	/* 读取边信息 */
+	for (k = 0; k < n; k++)
+	{
+		scanf("%c %c %d", &chx, &chy, &cost);
+		getchar();
+		i = chx - 'A' + 1;
+		j = chy - 'A' + 1;
+		graph[i][j] = cost;
+		graph[j][i] = cost;
+	}
+	/* 求解最小生成树 */
+	cost = Prim(graph, m);
+	/* 输出最小权值和 */
+	printf("Total:%d\n", cost);
+	getchar();
+	return 0;
+}
