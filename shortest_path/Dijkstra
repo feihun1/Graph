@@ -1,0 +1,38 @@
+void Dijkstra(MGraph *mgraph, int v)
+{
+	int i, j;
+	int no;
+	int min_dis;
+	int dis[NUM];
+	int visited[NUM] = { 0 };
+	int pre[NUM];
+	visited[v] = 1;
+	for (i = 0; i < mgraph->n; i++)
+	{
+		dis[i] = mgraph->edges[v][i];
+		pre[i] = v;
+	}
+	for (i = 0; i < mgraph->n; i++)
+	{
+		min_dis = INT_MAX;
+		for (j = 0; j < mgraph->n; j++)
+		{
+			if (!visited[j] && dis[j] < min_dis)
+			{
+				min_dis = dis[j];
+				no = j;
+			}
+		}
+		visited[no] = 1;
+		for (j = 0; j < mgraph->n; j++)
+		{
+			if (!visited[j] && mgraph->edges[no][j] != INT_MAX && dis[no] + mgraph->edges[no][j] < dis[j])
+			{
+				dis[j] = dis[no] + mgraph->edges[no][j];
+				pre[j] = no;
+			}
+		}
+	}
+	
+	Dispath(dis, pre, visited, mgraph->n, v);
+}
