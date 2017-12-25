@@ -1,0 +1,47 @@
+void Ford_Fulkerson()
+{
+	while (1)	//一次循环找到一条可行的增广路径
+	{
+		queue<int>q;
+		memset(visited, 0, sizeof(visited));
+		memset(father, -1, sizeof(father));
+		int now;
+		visited[0] = true;
+		q.push(0);
+		while (!q.empty())	//广度优先搜索
+		{
+			now = q.front();
+			cout << now << endl;
+			q.pop();
+			if (now == M - 1)
+				break;
+			for (int i = 0; i < M; ++i)
+			{
+				//每次父节点都要更新，权值为0除外
+				if (edge[now][i] && !visited[i])
+				{
+					father[i] = now;
+					visited[i] = true;
+					q.push(i);
+				}
+			}
+		}
+		//增广路径不存在时
+		if (!visited[M - 1])
+			break;
+		int u, min = INT_MAX;
+		for (u = M - 1; u; u = father[u])	//找出最小权值的边
+		{
+			if (edge[father[u]][u] < min)
+				min = edge[father[u]][u];
+		}
+		for (u = M - 1; u; u = father[u])
+		{
+			//正向弧减去
+			edge[father[u]][u] -= min;
+			//反向弧加上
+			edge[u][father[u]] += min;
+		}
+		ans += min;
+	}
+}
