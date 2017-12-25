@@ -1,0 +1,18 @@
+int main()
+{
+	int s, e, w;
+	while (cin >> N >> M)
+	{
+		ans = 0;
+		memset(edge, 0, sizeof(edge));
+		for (int i = 0; i < N; ++i)
+		{
+			cin >> s >> e >> w;
+			edge[s-1][e-1] += w;
+		}
+		Ford_Fulkerson();
+		cout << ans << endl;
+	}
+	getchar();
+	return 0;
+}
