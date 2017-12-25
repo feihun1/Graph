@@ -1,0 +1,10 @@
+#include <iostream>
+#include <queue>
+#include <limits.h>
+using namespace std;
+const int maxN = 201;
+static int edge[maxN][maxN];
+bool visited[maxN];
+int father[maxN];
+int M, N;	//边数和顶点数
+int ans;
